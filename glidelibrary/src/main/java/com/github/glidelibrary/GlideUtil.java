@@ -108,7 +108,7 @@ public class GlideUtil {
              * asFile：文件格式图片的加载
              * asDrawable：rawable格式图片的加载
              */
-            //requestManager.asGif();
+            requestManager.asGif();
         }
 
         RequestBuilder<Drawable> builder;
