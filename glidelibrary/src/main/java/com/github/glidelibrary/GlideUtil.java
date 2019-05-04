@@ -58,7 +58,10 @@ public class GlideUtil {
             options.placeholder(defaultDrawable);
         }
         //阻止动画
-        options.dontAnimate();
+        if(isGif){
+        }else{
+            options.dontAnimate();
+        }
 
         return options;
     }

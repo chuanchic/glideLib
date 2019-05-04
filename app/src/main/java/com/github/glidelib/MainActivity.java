@@ -24,5 +24,7 @@ public class MainActivity extends AppCompatActivity {
                 GlideUtil.loadNetImage(MainActivity.this, iv_image, url, true, 0);
             }
         });
+
+        ImageView iv_gif = findViewById(R.id.iv_gif);
     }
 }
