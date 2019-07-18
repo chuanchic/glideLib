@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -19,6 +20,8 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.sunfusheng.GlideImageView;
+import com.sunfusheng.progress.CircleProgressView;
 
 import java.io.File;
 
@@ -216,6 +219,30 @@ public class GlideUtil {
             e.printStackTrace();
         }
         return imageFile;
+    }
+
+    /**
+     * 加载图片（同时显示加载进度，一般用来显示大图）
+     */
+    public static void loadWithProgress(GlideImageView iv, CircleProgressView pv, String url, boolean centerCrop){
+        if(iv == null || pv == null || TextUtils.isEmpty(url)){
+            return;
+        }
+        if(centerCrop){
+            iv.centerCrop();
+        }else{
+            iv.fitCenter();
+        }
+        iv.error(R.mipmap.image_load_err)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .load(url, R.color.placeholder, (isComplete, percentage, bytesRead, totalBytes) -> {
+            if (isComplete) {//加载完成
+                pv.setVisibility(View.GONE);
+            } else {//加载中
+                pv.setVisibility(View.VISIBLE);
+                pv.setProgress(percentage);
+            }
+        });
     }
 
 }
